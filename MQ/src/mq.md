@@ -1,4 +1,3 @@
-
 ### RocketMQ如何保证消息有序性？
 - 全局有序？ 不支持，除非只有一个队列
 - 局部有序？ 也就是组内有序（单个队列有序）
@@ -9,4 +8,28 @@
   - 有顺序性的消息需要发送到同一个 MessageQueue，可能导致单个 MessageQueue 消息量很大，而 Consumer 端消费的时候只能单线程消费，很可能导致当前 MessageQueue 消息积压；
   - 如果顺序消息 MessageQueue 所在的 broker 挂了，这时 Producer 只能把消息发送到其他 Broker 的 MessageQueue 上，而如果新的 MessageQueue 被其他 Consumer 消费，这样两个 Consumer 消费的消息就不能保证顺序性了。
 如下图：![img.png](img.png)
+
+### RabbitMQ有哪些工作模式？
+ - 简单模式
+ - work工作模式
+ - pub/sub发布订阅模式
+ - Routing路由模式
+ - Topic主题模式
+
+### 如何保证消息的可靠性？
+  RabbitMQ：
+  - 生产者到 RabbitMQ：事务机制和 Confirm 机制，注意：事务机制和 Confirm 机制是互斥的，两者不能共存，会导致 RabbitMQ 报错。
+  - RabbitMQ 自身：持久化、集群、普通模式、镜像模式。
+  - RabbitMQ 到消费者：basicAck 机制、死信队列、消息补偿机制。
+  RocketMQ：
+  - 消息发送方：通过不同的重试策略保证了消息的可靠发送；
+  - Broker服务端：通过不同的刷盘机制以及主从复制来保证消息的可靠存储；
+  - 消息消费方：通过至少消费成功一次以及消费重试机制来保证消息的可靠消费；
+### RocketMQ为什么快？
+  - 顺序写：顺序写比随机写的性能会高很多，不会有大量寻址的过程
+  - 异步刷盘：
+  - 零拷贝：使用mmap的方式进行零拷贝，提高了数据传输的效率
+  - 
+
+
 

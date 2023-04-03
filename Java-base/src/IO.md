@@ -31,4 +31,13 @@
   - 只有活跃可用的FD才会调用callback函数；
 - kqueue
   - 与epoll类似，不过是在类unix下的实现
-#### IO多路复用与reactor
+#### IO多路复用与Reactor模型
+ 我的理解是Reactor模型其实是对epoll的封装，epoll指对IO尽心处理。而Reactor引入了事件处理机制，在于两个核心组件：
+  - Reactor：负责监听和分发事件，事件类型包含连接事件、读写事件；
+  - Handler：负责处理事件，如 read -> 业务逻辑 （decode + compute + encode）-> send；
+ 当然Reactor有多种模式
+  - 单 Reactor 单线程模型 ：redis默认实现，因其性能瓶颈在于内存和网络而不是cpu
+  - 单 Reactor 多线程模型
+  - 主从 Reactor 单线程模型 （无意义）
+  - 主从 Reactor 多线程模型 ：netty网络框架实现基于此
+
