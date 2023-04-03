@@ -15,6 +15,12 @@
 - @Autowired默认注入方式是byType（根据类型匹配），@Resource默认注入方式是byName（根据名称匹配）
 - 当一个接口有多个实现类的情况下，@Autowired和@Resource都需要名称才能正确匹配到对应的Bean。Autowired可以通过@Qualifier注解显式指定名称，@Resource可以通过name属性指定名称
 ### @Transactional注解哪些情况下会失效？
+- 非public方法修饰
+- @Transactional 注解属性 propagation 设置错误
+- @Transactional 注解属性 rollbackFor 设置错误（默认unchecked）
+- 同一个类中方法调用，因为没有生成代理对象
+- 异常被你的 catch“吃了”导致@Transactional失效
+- 数据库引擎不支持事务
 ### spring框架中用到了哪些设计模式？
 - 工厂设计模式：Spring使用工厂模式通过BeanFactory，ApplicationContext创建bean对象
 - 代理设计模式：Spring AOP功能的实现
