@@ -21,6 +21,7 @@
  - pub/sub发布订阅模式
  - Routing路由模式
  - Topic主题模式
+ - RPC模式
 
 ### 如何保证消息的可靠性？
   RabbitMQ：
